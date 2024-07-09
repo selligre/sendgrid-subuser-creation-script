@@ -11,17 +11,19 @@ To use this script, follow these steps:
    git clone https://github.com/selligre/sendgrid-subuser-creation-script.git
    ```
 
-2. Install the required dependencies:
+2. Open a console and install the required dependencies:
    ```
    python -m pip install -r requirements.txt
    ```
 
 ## Usage
 
-To start the script, double-click on the App.py file in your file explorer or run the following command:
+For the first use, run the following command:
 ```
 python App.py
 ```
+
+For all following uses, double-click on the App.py file in your file explorer.
 
 Please note that you will be using the SendGrid Saint-Gobain parent account and API key.
 
