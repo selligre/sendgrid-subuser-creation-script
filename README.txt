@@ -11,7 +11,7 @@ To use this script, follow these steps:
    git clone https://github.com/selligre/sendgrid-subuser-creation-script.git
    ```
 
-2. Open a console and install the required dependencies:
+2. Open a console and install the required dependencies (must be done before the first use of the tool):
    ```
    python -m pip install -r requirements.txt
    ```
