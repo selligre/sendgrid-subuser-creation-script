@@ -728,6 +728,10 @@ class App:
         print("STEP: Checking if the teammate is available")
         print("- START: check_used_teammate()")
 
+        if self.service == "shared_subdomain":
+            print("- SUCCESS: check_used_teammate() \n")
+            return False
+
         url = "https://api.sendgrid.com/v3/subusers"
         headers = {
             "Authorization": f"Bearer {self.api_key}",
@@ -868,8 +872,9 @@ class App:
         keepass = PyKeePass(filepath, self.keepass_password)
 
         # Get the API Key from the KeePass
-        entry = keepass.find_entries(title="sendgrid-portal", first=True)
+        entry = keepass.find_entries(title="Sendgrid tool - API Key", first=True)
         self.api_key = entry.password
+
         print("- SUCCESS: get_api_key() \n")
 
     def post_subuser(self):
@@ -959,8 +964,11 @@ class App:
         keepass_path = os.path.join(dir, "sendgrid_keepass.kdbx")
         self.keepass = PyKeePass(keepass_path, password=self.keepass_password)
         try:
+            group = self.keepass.find_groups(
+                name="PROD - Subusers List & API Key", first=True
+            )
             self.keepass.add_entry(
-                destination_group=self.keepass.root_group,
+                destination_group=group,
                 title=self.entry_username.get(),
                 username=self.entry_username.get(),
                 password=self.entry_password.get(),
@@ -1076,7 +1084,9 @@ class App:
         self.keepass = PyKeePass(keepass_path, password=self.keepass_password)
         try:
             self.keepass.add_entry(
-                destination_group=self.keepass.root_group,
+                destination_group=self.keepass.find_groups(
+                    name="PROD - Subusers List & API Key", first=True
+                ),
                 title=self.subuser_api_key_name,
                 username=self.subuser_api_key_name,
                 password=self.subuser_api_key,
